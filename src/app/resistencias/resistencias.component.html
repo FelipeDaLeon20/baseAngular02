@@ -1,49 +1,78 @@
-<h1>RESISTENCIAS</h1>
-<form class="">
-    <table class="card">
-        <h2>Primera Banda</h2>
-
-         <div> </div><input type="radio" name="" id="" value=""> <br> 
-         <div> </div><input type="radio" name="" id="" value=""> <br>
-         <div> </div><input type="radio" name="" id="" value=""> <br>
-         <div> </div><input type="radio" name="" id="" value=""> <br>
-         <div> </div><input type="radio" name="" id="" value=""> <br>
-         <div> </div><input type="radio" name="" id="" value=""> <br>
-         <div> </div><input type="radio" name="" id="" value=""> <br>
-         <div> </div><input type="radio" name="" id="" value=""> <br>
-         <div> </div><input type="radio" name="" id="" value=""> <br>
-         <div> </div><input type="radio" name="" id="" value=""> <br>
-    </table>
-    <table class="card">
-        <h2>Segunda Banda</h2>
-        <input type="radio" name="" id="" value=""> <br>
-        <input type="radio" name="" id="" value=""> <br>
-        <input type="radio" name="" id="" value=""> <br>
-        <input type="radio" name="" id="" value=""> <br>
-        <input type="radio" name="" id="" value=""> <br>
-        <input type="radio" name="" id="" value=""> <br>
-        <input type="radio" name="" id="" value=""> <br>
-        <input type="radio" name="" id="" value=""> <br>
-        <input type="radio" name="" id="" value=""> <br>
-        <input type="radio" name="" id="" value=""> <br>
-    </table>
-    <table class="card">
-        <h2>Tercera Banda multiplicador</h2>
-        <input type="radio" name="" id="" value="">  <br>
-        <input type="radio" name="" id="" value=""> <br>
-        <input type="radio" name="" id="" value=""> <br>
-        <input type="radio" name="" id="" value=""> <br>
-        <input type="radio" name="" id="" value=""> <br>
-        <input type="radio" name="" id="" value=""> <br>
-        <input type="radio" name="" id="" value=""> <br>
-        <input type="radio" name="" id="" value=""> <br>
-        <input type="radio" name="" id="" value=""> <br>
-        <input type="radio" name="" id="" value=""> <br>
-    </table> 
-    <br>
-    <table class="card">
-        <h2> Cuarta Banda</h2>
-        <input type="radio" name="" id="" value=""> <br>
-        <input type="radio" name="" id="" value=""> <br>
-    </table>
-</form>
+html<h1>Resistencia</h1>
+ 
+<div style="display: flex; margin-bottom: 20px; justify-content: center;">
+  <div>
+    <label>1ra. Banda</label>
+    <div *ngFor="let color of colorBase">
+ 
+      <input type="radio" [(ngModel)]="color1" [value]="color.nombre" name="color1">
+      <p [style.backgroundColor]="color.color" style="padding: 4px 8px; display: inline-block; margin: 2px; color: white;">
+        ({{ color.valor }})
+      </p>
+    </div>
+  </div>
+ 
+  <div>
+    <label>2da. Banda</label>
+    <div *ngFor="let color of colorBase">
+ 
+      <input type="radio" [(ngModel)]="color2" [value]="color.nombre" name="color2">
+      <p [style.backgroundColor]="color.color" style="padding: 4px 8px; display: inline-block; margin: 2px; color: white;">
+        ({{ color.valor }})
+      </p>
+    </div>
+  </div>
+ 
+  <div>
+    <label>3ra. Banda Multiplicador</label>
+    <div *ngFor="let multi of multiplicadores">
+ 
+      <input type="radio" [(ngModel)]="color3" [value]="multi.nombre" name="color3">
+      <p [style.backgroundColor]="multi.color" style="padding: 4px 8px; display: inline-block; margin: 2px; color: white;">
+        (x{{ multi.valor }})
+      </p>
+    </div>
+  </div>
+</div>
+ 
+ 
+<div style="margin-bottom: 20px; text-align: center;">
+  <label>Tolerancia</label>
+  <div *ngFor="let tole of tolerancias">
+ 
+    <input type="radio" [(ngModel)]="tolerancia" [value]="tole.nombre" name="tolerancia">
+    <p [style.backgroundColor]="tole.color" style="padding: 4px 8px; display: inline-block; margin: 2px; color: white;">
+      {{ tole.nombre }} ({{ tole.valor * 100 }}%)
+    </p>
+  </div>
+</div>
+ 
+<div style="text-align: center; margin-bottom: 20px;">
+<button  (click)="calcular()">Calcular</button>
+</div>
+ 
+<h1>...................................................................................................................................</h1>
+<table *ngIf="mostrarTabla" style="width: 100%; text-align: center; margin-top: 20px; border-collapse: collapse;">
+  <thead>
+    <tr>
+      <th>Color1</th>
+      <th>Color2</th>
+      <th>Color3</th>
+      <th>Tolerancia</th>
+      <th>Valor (Ohms)</th>
+      <th>Valor Máximo</th>
+      <th>Valor Mínimo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td [style.backgroundColor]="pintar(color1)">{{ color1 }}</td>
+      <td [style.backgroundColor]="pintar(color2)">{{ color2 }}</td>
+      <td [style.backgroundColor]="pintar(color3)">{{ color3 }}</td>
+      <td [style.backgroundColor]="pintar(tolerancia)">{{ tolerancia }}</td>
+      <td>{{ resultado }}</td>
+      <td>{{ maximo }}</td>
+      <td>{{ minimo }}</td>
+    </tr>
+  </tbody>
+</table>
